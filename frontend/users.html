@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Dashboard</title>
+
+    <!-- Font awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Bootstrap Bundle with Popper -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-..." crossorigin="anonymous"></script> -->
+
+    <!-- Custom styles for this template-->
+    <link href="css/sb-admin-2.min.css" rel="stylesheet">
+
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+   
+</head>
+
+<body id="page-top">
+
+    <!-- Page Wrapper -->
+    <div id="wrapper">
+
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="dashboard.html">
+                <div class="sidebar-brand-icon rotate-n-15">
+                    <i class="fas fa-laugh-wink"></i>
+                </div>
+                <div class="sidebar-brand-text mx-3">Lina WebSystem</div>
+            </a>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">
+                    <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                Interface
+            </div>
+
+            <!-- Users -->
+           <li class="nav-item active">
+                <a class="nav-link" href="users.html">
+                    <i class="fas fa-user"></i>
+                    <span>Users</span></a>
+            </li>
+            
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
+            
+            <!-- Employee -->
+           <li class="nav-item">
+                <a class="nav-link" href="employees.html">
+                    <i class="fas fa-users"></i>
+                    <span>Employees</span></a>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider">
+
+            <!-- Tasks -->
+           <li class="nav-item">
+                <a class="nav-link" href="task.html">
+                    <i class="fas fa-users"></i>
+                    <span>Tasks</span></a>
+            </li>
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
+            </div>
+
+        </ul>
+        <!-- End of Sidebar -->
+
+        <!-- Content Wrapper -->
+        <div id="content-wrapper" class="d-flex flex-column">
+
+            <!-- Main Content -->
+            <div id="content">
+
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow">
+                            <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <span class="mr-2 d-none d-lg-inline text-gray-600 small"><h7 id="userName">Loading.....</h7></span>
+                                <img class="img-profile rounded-circle"
+                                    src="images/Admin-Profile.png">
+                            </a>
+                            <!-- Dropdown - User Information -->
+                            <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
+                                aria-labelledby="userDropdown">
+                                <a class="dropdown-item" href="/frontend/profile.html">
+                                    <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Profile
+                                </a>
+                                <div class="dropdown-divider"></div>
+                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#logoutModal">
+                                    <i class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                    Logout
+                                </a>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                </nav>
+                <!-- End of Topbar -->
+
+                <!-- Begin Page Content -->
+                <div class="container-fluid">
+
+                    <!-- Page Heading -->
+                    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+                        <h1 class="h3 mb-0 text-gray-800">User</h1>
+                    </div>
+
+                    <!-- Users -->
+                    <div class="card mt-2">
+                        <div class="card-header">
+                            <div class="row">
+                                <div class="col-md-6 col-12">
+                                    <h1><i class="fa fa-solid fa-users mt-2"></i> List of Users</h1>
+                                </div>
+                                <div class="col-md-6 col-12">
+                                    <button  title="Add User" class="float-end btn btn-primary mt-2" data-toggle="modal" data-target="#createUserModal">
+                                        <i class="fa fa-solid fa-user"></i> Add User
+                                    </button>
+                                </div>
+                            </div>
+                        </div> 
+
+                        <div class="card-body">
+                            <div id="confirm-message" class="text-danger mb-3 d-none">
+                                This is Message!
+                            </div>
+                            <div class="table-responsive">
+                                <table class="table table-hover table-striped table-sm text-sm" id="usersTable">
+                                    <caption>Users Table</caption>
+                                    <thead>
+                                        <tr>
+                                            <th style="width: 60px;">ID</th>
+                                            <th>Name</th>
+                                            <th>Email</th>
+                                            <th>Role</th>
+                                            <th>Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Table rows will be dynamically inserted here -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Users -->
+
+                    <!-- Create User Modal -->
+                    <div class="modal fade" id="createUserModal" tabindex="-1" aria-labelledby="createUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                            <form id="createUserForm" enctype="multipart/form-data">
+                                <div class="modal-header text-color-500 text-gray-800" style="background-color: rgb(120, 120, 237);" >
+                                <h5 class="modal-title" id="createUserModalLabel"><i class="fas fa-user"></i> Create User</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                <input type="hidden" id="user_id">
+
+                                <div class="form-group mb-3">
+                                    <label for="profile_image">Profile Image</label>
+                                    <input type="file" class="dropify form-control" id="profile_image" name="profile_image">
+                                </div> 
+
+                                <div class="form-group mb-3">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="role_id">Role</label>
+                                    <select name="role_id" id="role_id" class="form-control">
+                                    <option value="" selected disabled>Select a Role</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Manager</option>
+                                    <option value="3">Staff</option>
+                                    </select>
+                                </div>
+
+                                <!-- Role Fiels -->
+                                <div id="employeeFields" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="department">Department</label>
+                                        <select class="form-control" id="department" name="department">
+                                            <option value="" disabled selected>Select</option>
+                                            <option value="Hr">HR</option>
+                                            <option value="It">IT</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="position">Position</label>
+                                        <input type="text" class="form-control" id="position" name="position"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hire_date">Hire Date</label>
+                                        <input type="date" class="form-control" name="hire_date" id="hire_date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="salary">Salary</label>
+                                        <input type="number" class="form-control" name="salary" id="salary">
+                                    </div>
+                                </div>
+                                <!-- End of Role Fields -->
+
+                                <div class="form-group mb-3">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Create</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Create User Modal -->
+
+                    <!-- Edit User Modal -->
+                    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                            <form id="editUserForm" enctype="multipart/form-data">
+                                <div class="modal-header text-color-500 text-gray-800" style="background-color: yellow;" >
+                                <h5 class="modal-title" id="editUserModalLabel"><i class="fas fa-edit"></i> Edit User</h5>
+                                <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                <div class="modal-body">
+                                <input type="hidden" id="edit_user_id">
+
+                                <div class="form-group mb-3">
+                                    <label for="profile_image">Profile Image</label>
+                                    <input type="file" class="dropify form-control" id="edit_profile_image" name="profile_image">
+                                </div> 
+
+                                <div class="form-group mb-3">
+                                    <label for="name">Name</label>
+                                    <input type="text" class="form-control" id="edit_name" name="name">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="email">Email</label>
+                                    <input type="email" class="form-control" id="edit_email" name="email">
+                                </div>
+
+                                <div class="form-group mb-3">
+                                    <label for="role_id">Role</label>
+                                    <select name="role_id" id="edit_role_id" class="form-control">
+                                    <option value="" selected disabled>Select a Role</option>
+                                    <option value="1">Admin</option>
+                                    <option value="2">Manager</option>
+                                    <option value="3">Staff</option>
+                                    </select>
+                                </div>
+
+                                <!-- Role Fiels -->
+                                <div id="editemployeeFields" style="display: none;">
+                                    <div class="form-group">
+                                        <label for="edit_department">Department</label>
+                                        <select class="form-control" id="edit_department" name="edit_department">
+                                            <option value="" disabled selected>Select</option>
+                                            <option value="Hr">HR</option>
+                                            <option value="It">IT</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="edit_position">Position</label>
+                                        <input type="text" class="form-control" id="edit_position" name="position"></input>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hire_date">Hire Date</label>
+                                        <input type="date" class="form-control" name="hire_date" id="edit_hire_date">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="salary">Salary</label>
+                                        <input type="number" class="form-control" name="salary" id="edit_salary">
+                                    </div>
+                                </div>
+                                <!-- End of Role Fields -->
+
+                                <div class="form-group mb-3">
+                                    <label for="password">Password</label>
+                                    <input type="password" class="form-control" id="edit_password" name="password">
+                                </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                <button type="submit" class="btn btn-success">Update</button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Edit User Modal -->
+
+                    <!-- Show User Modal -->
+                    <div class="modal fade" id="showUserModal" tabindex="-1" aria-labelledby="showUserModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content lg-12 w-100">
+                                <div class="modal-header text-color-500 text-gray-800" style="background-color: rgb(101, 247, 247);" >
+                                    <h5 class="modal-title" id="showUserModalLabel"><i class="fas fa-eye"></i> Show User</h5>
+                                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close"></button>
+                                </div>
+
+                                    <div class="modal-body">
+                                        <input type="hidden" id="show_user_id">
+
+                                        <div class="form-group mb-3 text-center">
+                                            <img id="show_profile_image" src="https://via.placeholder.com/150" class="img-thumbnail mb-2" width="150" height="150">
+                                        </div> 
+
+                                        <div class="form-group mb-2">
+                                            <label class="fw-bold">Name:</label>
+                                            <div id="show_name" class="form-control-plaintext"></div>
+                                        </div>
+
+                                        <div class="form-group mb-2">
+                                            <label class="fw-bold">Email:</label>
+                                            <div id="show_email" class="form-control-plaintext"></div>
+                                        </div>
+
+                                        <div class="form-group mb-4">
+                                            <label class="fw-bold">Role:</label>
+                                            <div id="show_role" class="form-control-plaintext"></div>
+                                        </div>
+
+                                        <!-- Employee-specific fields -->
+                                        <div id="showemployeeFields" style="display: none;">
+                                            <div class="form-group mb-2">
+                                                <label class="fw-bold">Position:</label>
+                                                <div id="show_position" class="form-control-plaintext"></div>
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label class="fw-bold">Department:</label>
+                                                <div id="show_department" class="form-control-plaintext"></div>
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label class="fw-bold">Hire Date:</label>
+                                                <div id="show_hire_date" class="form-control-plaintext"></div>
+                                            </div>
+                                            <div class="form-group mb-2">
+                                                <label class="fw-bold">Salary:</label>
+                                                <div id="show_salary" class="form-control-plaintext"></div>
+                                            </div>
+                                        </div>
+                                        <!-- End of Employee Fields -->
+                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- End of Show User Modal -->
+
+                </div>
+                <!-- /.container-fluid -->
+
+            </div>
+            <!-- End of Main Content -->
+
+            <!-- Footer -->
+            <footer class="sticky-footer bg-white">
+                <div class="container my-auto">
+                    <div class="copyright text-center my-auto">
+                        <span>Copyright &copy; Website 2025</span>
+                    </div>
+                </div>
+            </footer>
+            <!-- End of Footer -->
+
+        </div>
+        <!-- End of Content Wrapper -->
+
+    </div>
+    <!-- End of Page Wrapper -->
+
+    <!-- Scroll to Top Button-->
+    <a class="scroll-to-top rounded" href="#page-top">
+        <i class="fas fa-angle-up"></i>
+    </a>
+
+    <!-- Logout Modal-->
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <!-- <a class="btn btn-primary" href="login.html">Logout</a> -->
+                    <button type="submit" class="btn btn-primary" onclick="logout()">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script>
+        function logout(){
+            localStorage.removeItem('token');
+            window.location.href = '/frontend/login.html'; 
+        }
+    </script>
+
+    <!-- topbar -->
+    <script>
+    fetch('http://127.0.0.1:8000/api/getUserProfile', {
+        headers: {
+        'Accept': 'application/json',
+        Authorization: 'Bearer ' + localStorage.getItem('token')
+        },
+        credentials: 'same-origin' // Ensure cookies (like session or sanctum token) are sent
+    })
+    .then(response => {
+        if (!response.ok) throw new Error('User not authenticated');
+        return response.json();
+    })
+    .then(user => {
+        const display =  user.name;
+        document.getElementById('userName').textContent = display;
+    })
+    .catch(error => {
+        console.error('Error fetching user:', error);
+        document.getElementById('userName').textContent = 'Guest';
+    });
+    </script>
+    <!-- end of topbar -->
+
+    <!-- Showing the list of all the users -->
+    <script>
+        function getCurrentUser() {
+            return fetch('http://127.0.0.1:8000/api/user', {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            }).then(res => res.json());
+        }
+
+    document.addEventListener('DOMContentLoaded', async  function(){
+        const currentUser = await getCurrentUser(); // Get logged-in user
+        const table = $('#usersTable').DataTable();
+        table.clear();
+
+        fetch('http://127.0.0.1:8000/api/usersList', {
+            method: 'GET',
+            headers:{
+                Accept: 'application/json',
+                'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + localStorage.getItem('token')
+            },
+        }).then(res => res.json())
+            .then(users => {
+                users.forEach(user => {
+                    if (user.id === currentUser.id) return;
+                    let roleName = '';
+                    switch (user.role_id) {
+                        case '1':
+                        case 1:
+                            roleName = 'Admin';
+                            break;
+                        case '2':
+                        case 2:
+                            roleName = 'Manager';
+                            break;
+                        case '3':
+                        case 3:
+                            roleName = 'Staff';
+                            break;
+                        default:
+                            roleName = 'Unknown';
+                    }
+
+                    table.row.add([
+                        user.id,
+                        user.name,
+                        user.email,
+                        `<span class='badge ${roleName === 'Admin' ? 'bg-primary' : roleName === 'Manager' ? 'bg-success' : 'bg-warning'}'>${roleName}</span>`,
+                        `<button class='printButton btn btn-info btn-sm' data-id="${user.id}" title="Print Button"><i class='fa fa-solid fa-print'></i></button>
+                        <button class='showButton btn btn-primary btn-sm' data-id="${user.id}" title="Show Button" data-toggle="modal" data-target="#showUserModal"><i class='fa fa-solid fa-eye'></i></button>
+                        <button class='showEditFormButton btn btn-warning btn-sm' data-id="${user.id}" title="Edit Button" data-toggle="modal" data-target="#editUserModal"><i class='fa fa-solid fa-edit'></i></button>
+                        <a class='deleteUser btn btn-danger btn-sm' data-user-id='${user.id}' title="Delete Button"><i class='fa fa-solid fa-trash'></i></a>`
+                    ]);
+                    table.draw();
+                });
+                
+            })
+            
+        // Delete Button
+        document.addEventListener('click', function (e) {
+            const deleteBtn = e.target.closest('.deleteUser');
+            if (!deleteBtn) return;
+
+            const userId = deleteBtn.getAttribute('data-user-id');
+            if (!userId) return;
+
+            Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#6c757d',
+            confirmButtonText: 'Yes, delete it!',
+            }).then((result) => {
+            if (result.isConfirmed) {
+                fetch(`http://127.0.0.1:8000/api/delete/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status) {
+                    Swal.fire('Deleted!', data.message || 'User has been deleted.', 'success')
+                        .then(() => {
+                        location.reload(); // Refresh the page
+                        });
+                    } else {
+                    Swal.fire('Error', data.message || 'Something went wrong.', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error:', error);
+                    Swal.fire('Error', 'An error occurred while deleting the user.', 'error');
+                });
+            }
+            });
+        });
+
+
+
+        // Show Profile
+        document.addEventListener('click', async function (e) {
+            const showBtn = e.target.closest('.showButton');
+            if (!showBtn) return;
+
+            const userId = showBtn.getAttribute('data-id');
+            if (!userId) return;
+
+            try {
+                const res = await fetch(`http://127.0.0.1:8000/api/get/showUser/${userId}`, {
+                    method: 'GET',
+                    headers: {
+                        Accept: 'application/json',
+                        'Content-Type': 'application/json',
+                        Authorization: 'Bearer ' + localStorage.getItem('token')
+                    }
+                });
+
+                const data = await res.json();
+                if (!data.status) {
+                    Swal.fire('Error', data.message || 'User not found.', 'error');
+                    return;
+                }
+
+                const user = data.user;
+                const employee = data.employee;
+
+                // Fill modal fields
+                document.getElementById('show_user_id').value = user.id;
+
+                // Profile image
+                const profileImageField = document.getElementById('show_profile_image');
+                if (profileImageField) {
+                    profileImageField.src = user.profile_image 
+                        ? `http://127.0.0.1:8000/storage/${user.profile_image}` 
+                        : 'https://via.placeholder.com/150';
+                }
+
+                // Name, email, role
+                document.getElementById('show_name').textContent = user.name;
+                document.getElementById('show_email').textContent = user.email;
+                document.getElementById('show_role').textContent = 
+                user.role_id == 1 ? 'Admin':
+                user.role_id == 2 ? 'Manager':
+                user.role_id == 3 ? 'Staff' : 'Unknown';
+
+                // Show or hide employee fields
+                const employeeFields = document.getElementById('showemployeeFields');
+                if (user.role_id == 2 || user.role_id == 3) {
+                    employeeFields.style.display = 'block';
+                    document.getElementById('show_position').textContent = employee.position || 'N/A';
+                    document.getElementById('show_department').textContent = employee.department || 'N/A';
+                    document.getElementById('show_hire_date').textContent = employee.hire_date || 'N/A';
+                    document.getElementById('show_salary').textContent = employee.salary || 'N/A';
+                } else {
+                    employeeFields.style.display = 'none';
+                }
+
+                // Show modal
+                const showUserModal = new bootstrap.Modal(document.getElementById('showUserModal'));
+                showUserModal.show();
+
+            } catch (error) {
+                console.error('Error fetching user:', error);
+                Swal.fire('Error', 'Failed to load user details.', 'error');
+            }
+        });
+        
+
+    });
+
+    </script>
+    <!-- End of Showing the list of all the users -->
+
+    <!-- Show Role fields if the role is 2 and 3 in Create User-->
+    <script>
+    document.getElementById('role_id').addEventListener('change', function () {
+        const employeeFields = document.getElementById('employeeFields');
+        if (this.value === '2' || this.value === '3') {
+            employeeFields.style.display = 'block';
+        } else {
+            employeeFields.style.display = 'none';
+        }
+    });
+    </script>
+    <!-- End of Show Role fields if the role is 2 and 3 in Create User-->
+
+    <!-- Script Submit Users Create -->
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const form = document.querySelector('#createUserForm');
+
+        form.addEventListener('submit', function (event) {
+        event.preventDefault();
+
+        let formData = new FormData();
+        formData.append('name', document.getElementById('name').value);
+        formData.append('email', document.getElementById('email').value);
+        formData.append('role_id', document.getElementById('role_id').value);
+        formData.append('password', document.getElementById('password').value);
+
+        let profileImageInput = document.getElementById('profile_image');
+        if (profileImageInput.files.length > 0) {
+            formData.append('profile_image', profileImageInput.files[0]);
+        }
+
+        // If role_id is 2 (employee) //
+        const role = document.getElementById('role_id').value;
+        formData.append('role_id', role);
+
+        if (role === '2' && '3') {
+          formData.append('position', document.getElementById('position').value);
+          formData.append('department', document.getElementById('department').value);
+          formData.append('hire_date', document.getElementById('hire_date').value);
+          formData.append('salary', document.getElementById('salary').value);
+        }
+
+        Swal.fire({
+            title: 'Creating User...',
+            allowOutsideClick: false,
+            didOpen: () => {
+            Swal.showLoading();
+            }
+        });
+        
+
+        fetch('http://127.0.0.1:8000/api/createusers', {
+            method: 'POST',
+            body: formData,
+            headers: {
+            'Cache-Control': 'no-cache',
+            'Pragma': 'no-cache',
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+            },
+        })
+        .then(async response => {
+            const res = await response.json();
+            console.log('Parsed JSON:', res);
+
+            if (res.status) {
+            Swal.fire({
+                icon: 'success',
+                title: 'User Created',
+                text: 'The user was created successfully.',
+                timer: 2000,
+                showConfirmButton: false
+            });
+
+            // Hide modal (Bootstrap 4 jQuery method)
+            $('#createUserModal').modal('hide');
+            form.reset();
+            } else {
+            Swal.fire({
+                icon: 'error',
+                title: 'Creation Failed',
+                text: res.message || 'Failed to create user.'
+            });
+            }
+        })
+        .catch(error => {
+            console.error('Error creating user:', error);
+            Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'An error occurred. Please try again.'
+            });
+        });
+        });
+    });
+    </script>
+    <!-- End of Script Submit Users Create -->
+
+    <!-- Script for Edit -->
+    <script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const form = document.querySelector('#editUserForm');
+
+        function toggleEmployeeFields(role_id) {
+            const employeeFields = document.getElementById("editemployeeFields");
+            employeeFields.style.display = (role_id === 2 || role_id === 3) ? "block" : "none";
+        }
+
+        // EVENT: Show Edit Form
+        document.addEventListener("click", function (event) {
+            const button = event.target.closest(".showEditFormButton");
+            if (!button) return;
+
+            event.preventDefault();
+            const userId = button.dataset.id;
+            document.getElementById("edit_user_id").value = userId;
+
+            fetch(`http://127.0.0.1:8000/api/getUserById/${userId}`, {
+                method: 'GET',
+                headers: {
+                    Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (!data?.status) {
+                    alert("User not found");
+                    return;
+                }
+
+                const { user, employee } = data;
+
+                document.getElementById("edit_name").value = user.name;
+                document.getElementById("edit_email").value = user.email;
+                document.getElementById("edit_role_id").value = user.role_id;
+
+                toggleEmployeeFields(user.role_id);
+
+                if (user.role_id === 2 || user.role_id === 3) {
+                    document.getElementById("edit_position").value = employee?.position || "";
+                    document.getElementById("edit_department").value = employee?.department || "";
+                    document.getElementById("edit_hire_date").value = employee?.hire_date || "";
+                    document.getElementById("edit_salary").value = employee?.salary || "";
+                }
+            })
+            .catch(error => {
+                console.error("Fetch error:", error);
+                alert("Failed to load user.");
+            });
+        });
+
+        // Submit Edit Form
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const userId = document.getElementById("edit_user_id").value;
+            const role = parseInt(document.getElementById("edit_role_id").value);
+            const formData = new FormData();
+
+            formData.append('name', document.getElementById("edit_name").value);
+            formData.append('email', document.getElementById("edit_email").value);
+            formData.append('role_id', role);
+            formData.append('password', document.getElementById("edit_password").value);
+
+            const profileImage = document.getElementById("edit_profile_image").files[0];
+            if (profileImage) {
+                formData.append('profile_image', profileImage);
+            }
+
+            if (role === 2 || role === 3) {
+                formData.append('position', document.getElementById("edit_position").value);
+                formData.append('department', document.getElementById("edit_department").value);
+                formData.append('hire_date', document.getElementById("edit_hire_date").value);
+                formData.append('salary', document.getElementById("edit_salary").value);
+            }
+
+            formData.append('_method', 'PUT'); // For Laravel PUT
+
+            Swal.fire({
+                title: 'Updating User...',
+                allowOutsideClick: false,
+                didOpen: () => Swal.showLoading()
+            });
+
+            fetch(`http://127.0.0.1:8000/api/update/users/${userId}`, {
+                method: 'POST',
+                headers: {
+                    Accept: 'application/json',
+                    Authorization: 'Bearer ' + localStorage.getItem('token')
+                },
+                body: formData
+            })
+            .then(async response => {
+                const res = await response.json();
+                console.log('Parsed JSON:', res);
+
+                if (res.status) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'User Updated',
+                        text: 'The user was updated successfully.',
+                        timer: 2000,
+                        showConfirmButton: false
+                    });
+
+                    // Hide modal (Bootstrap 4/5 compatibility)
+                    const modalEl = document.getElementById('editUserModal');
+                    const modal = bootstrap.Modal.getInstance(modalEl);
+                    modal?.hide();
+
+                    form.reset();
+                } else {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Update Failed',
+                        text: res.message || 'Failed to update user.'
+                    });
+                }
+            })
+            .catch(error => {
+                console.error('Error updating user:', error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'An error occurred. Please try again.'
+                });
+            });
+        });
+    });
+    </script>
+    <!-- End of Script for Edit -->
+
+    <!-- Print Button -->
+    <script>
+        document.addEventListener('click', function (e) {
+            const printBtn = e.target.closest('.printButton');
+            if (!printBtn) return;
+
+            const userId = printBtn.getAttribute('data-id');
+            if (!userId) return;
+
+            window.location.href = `print.html?user_id=${userId}`;
+        });
+    </script>
+    <!-- End of Print Button  -->
+
+    <!-- security -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                window.location.href = '/frontend/index.html';
+            } 
+        });
+    </script>
+    <!-- end of security -->
+
+</body>
+
+</html>

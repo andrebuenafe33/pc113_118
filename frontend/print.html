@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Record</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/frontend/css/print.css">
+</head>
+<body>
+    <div id="printContent"></div>
+
+    <script>
+        async function getUserData(userId) {
+            const res = await fetch(`http://127.0.0.1:8000/api/get/showUser/${userId}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Accept': 'application/json',
+                    'Authorization': 'Bearer ' + localStorage.getItem('token')
+                }
+            });
+            return res.json();
+        }
+
+        function getQueryParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        window.onload = async function () {
+            const userId = getQueryParam('user_id');
+            const printContent = document.getElementById('printContent');
+
+            if (!userId) {
+                printContent.innerHTML = '<p>User ID missing in URL.</p>';
+                return;
+            }
+
+            try {
+                const response = await getUserData(userId);
+                if (!response.status) {
+                    printContent.innerHTML = '<p>User not found.</p>';
+                    return;
+                }
+
+                const { user, employee } = response;
+
+                const imageUrl = user.profile_image
+                    ? `http://127.0.0.1:8000/storage/${user.profile_image}`
+                    : 'https://via.placeholder.com/120';
+
+                let role = 'Unknown';
+                if (user.role_id === 1) role = 'Admin';
+                else if (user.role_id === 2) role = 'Manager';
+                else if (user.role_id === 3) role = 'Staff';
+
+                
+                let html = `
+                    <div class="header">
+                        <img src="/frontend/images/company_logo.jpg" alt="Company Logo" class="header-logo">
+                        <div class="header-text">
+                            <h2>Company HR Department</h2>
+                            <p>Employee Record Sheet</p>
+                        </div>
+                    </div>
+
+                    <div class="section-title">User Information</div>
+                    <table class="info-table">
+                        <tr>
+                            <td class="label">Profile Image</td>
+                            <td><img src="${imageUrl}" alt="Profile Image" class="profile-img" onerror="this.src='https://via.placeholder.com/120'"></td>
+                        </tr>
+                        <tr>
+                            <td class="label">Full Name</td>
+                            <td>${user.name}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Email</td>
+                            <td>${user.email}</td>
+                        </tr>
+                        <tr>
+                            <td class="label">Role</td>
+                            <td>${role}</td>
+                        </tr>
+                    </table>`;
+
+                
+                if ((user.role_id === 2 || user.role_id === 3) && employee) {
+                    html += `
+                        <div class="section-title">Employment Details</div>
+                        <table class="info-table">
+                            <tr>
+                                <td class="label">Position</td>
+                                <td>${employee.position || 'N/A'}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Department</td>
+                                <td>${employee.department || 'N/A'}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Hire Date</td>
+                                <td>${employee.hire_date || 'N/A'}</td>
+                            </tr>
+                            <tr>
+                                <td class="label">Salary</td>
+                                <td>${employee.salary || 'N/A'}</td>
+                            </tr>
+                        </table>`;
+                }
+
+                printContent.innerHTML = html;
+
+                // Trigger print after short delay
+                setTimeout(() => {
+                    window.print();
+                    window.onafterprint = () => window.location.href = 'users.html';
+                }, 500);
+
+            } catch (error) {
+                console.error('Print error:', error);
+                printContent.innerHTML = '<p>Failed to fetch user data.</p>';
+            }
+        };
+    </script>
+
+</body>
+</html>

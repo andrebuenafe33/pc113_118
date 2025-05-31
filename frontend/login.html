@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="/frontend/css/login.css">
+    <!-- SweetAlert2 CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+     <!-- SweetAlert2 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head>
+<body>
+
+    <div class="login-container">
+        <a href="index.html" style="text-decoration: none;"><h2>Login</h2></a>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <input type="email" id="email" name="email" placeholder="Email" required>
+            </div>
+            <div class="form-group">
+                <input type="password" id="password" name="password" placeholder="Password" required>
+            </div>
+            <button type="submit">Login</button>
+        </form>
+
+        <!-- Message container for errors -->
+        <div id="message" style="color: red; margin-top: 10px;"></div>
+    </div>
+
+    <!-- Login Script -->
+    <script>
+
+        document.addEventListener('DOMContentLoaded', function () {
+                document.getElementById('loginForm').addEventListener('submit', function (e) {
+                    e.preventDefault();
+
+                    const email = document.getElementById('email').value.trim();
+                    const password = document.getElementById('password').value.trim();
+                    const messageEl = document.getElementById('message');
+                    messageEl.innerText = '';
+
+                    if (!email || !password) {
+                        messageEl.innerText = 'Please fill in all fields.';
+                        return;
+                    }
+
+                    Swal.fire({
+                        title: 'Logging in...',
+                        text: 'Please wait while we verify your credentials.',
+                        allowOutsideClick: false,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
+                    });
+
+                    fetch('http://127.0.0.1:8000/api/login', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Accept': 'application/json'
+                        },
+                        body: JSON.stringify({ email, password })
+                    })
+                    .then(function (response) {
+                        return response.json().then(function (data) {
+                            return { status: response.status, ok: response.ok, data: data };
+                        });
+                    })
+                    .then(function (result) {
+                        if (result.ok) {
+                            Swal.fire({
+                                title: 'Login Successful!',
+                                text: 'Redirecting to dashboard...',
+                                icon: 'success',
+                                confirmButtonText: 'Proceed',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false
+                            }).then((swalResult) => {
+                                if (swalResult.isConfirmed) {
+                                    localStorage.setItem('token', result.data.token);
+                                    setTimeout(() => {
+                                        window.location.href = `/frontend/dashboard.html`;
+                                    }, 300);
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: 'Login Failed',
+                                text: result.data.message || 'Invalid email or password.',
+                                icon: 'error',
+                                confirmButtonText: 'Try Again',
+                                allowOutsideClick: false,
+                                allowEscapeKey: false
+                            });
+                        }
+                    })
+                    .catch(function (err) {
+                        console.error('Login error:', err.message || err);
+                        Swal.fire({
+                            title: 'Server Error',
+                            text: 'Unable to connect to the server. Please try again later.',
+                            icon: 'error',
+                            confirmButtonText: 'OK'
+                        });
+                    });
+                });
+        });
+    </script>
+    <!-- End of Login Script -->
+
+    <!-- Redirect to dashboard if already logged in -->
+    <!-- <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const token = localStorage.getItem('token');
+
+        if (token) {
+        fetch('http://127.0.0.1:8000/api/user', {
+            method: 'GET',
+            headers: {
+            'Authorization': 'Bearer ' + token,
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+            }
+        })
+        .then(res => {
+            if (res.ok) {
+            // Already logged in
+            window.location.href = '/frontend/dashboard.html';
+            }
+        });
+        }
+    });
+    </script> -->
+    <!-- End of Redirect to dashboard if already logged in -->
+
+
+
+
+</body>
+</html>
