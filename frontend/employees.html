@@ -161,6 +161,7 @@
                             <div class="row">
                                 <div class="col-md-6 col-12">
                                     <h1><i class="fa fa-solid fa-users mt-2"></i> List of Employees</h1>
+                                    <button id="exportPDF" class="btn btn-secondary btn-sm">Export PDF</button>
                                 </div>
                             </div>
                         </div> 
@@ -496,6 +497,48 @@
     </script>
     <!-- end of security -->
 
+    <!-- Export -->
+    <script>
+    document.getElementById('exportPDF').addEventListener('click', function() {
+        fetch('http://127.0.0.1:8000/api/employees/export-pdf', {
+        method: 'GET',
+        headers: {
+            Authorization: 'Bearer ' + localStorage.getItem('token')
+        }
+        })
+        .then(response => {
+        if (!response.ok) throw new Error('Network response was not ok');
+        return response.blob();
+        })
+        .then(blob => {
+        const url = window.URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'employees_list.pdf'; // filename
+        document.body.appendChild(a);
+        a.click();
+        a.remove();
+        window.URL.revokeObjectURL(url);
+        Swal.fire({
+            icon: 'success',
+            title: 'Download Complete',
+            text: 'The employees list PDF has been downloaded.',
+            confirmButtonText: 'OK'
+        }).then(() => {
+            window.location.reload();
+        });
+        })
+        .catch(error => {
+        Swal.fire({
+            icon: 'error',
+            title: 'Download Failed',
+            text: 'Failed to download PDF. Please try again.',
+        });
+        console.error('Export PDF error:', error);
+        });
+    });
+    </script>
+    <!-- End of Export -->
 </body>
 
 </html>
