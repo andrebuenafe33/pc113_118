@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Password;
+use PDF; 
 
 class EmployeesController extends Controller
 {
@@ -82,5 +83,16 @@ class EmployeesController extends Controller
         ]);
     }
 
+    public function exportPDF()
+    {
+        // load employees with their user relation
+        $employees = Employee::with('user')->get();
+
+        $pdf = PDF::loadView('exports.employees_pdf', [
+            'employees' => $employees,
+        ]);
+
+        return $pdf->download('employees.pdf');
+    }
     
 }

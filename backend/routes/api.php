@@ -63,6 +63,7 @@ use App\Models\Employee;
         Route::get('/getEmployeeById/{id}', [EmployeesController::class, 'getEmployeeById']);
         Route::put('/update/employees/{id}', [EmployeesController::class, 'update']); 
         Route::post('/update/employees/{id}', [EmployeesController::class, 'update']);
+        Route::get('/employees/export-pdf', [EmployeesController::class, 'exportPDF']);
         
         // Task Assignments
         Route::get('/showTask/{id}', [TaskAssignmentController::class, 'showTask']);
@@ -76,7 +77,7 @@ use App\Models\Employee;
         // Employee Reports
         Route::get('/reports', [EmployeeReportController::class, 'index']);     // List reports of logged-in staff
         Route::post('/reports', [EmployeeReportController::class, 'store']);    // Submit report for a task
-
+       
 
     }); 
 
