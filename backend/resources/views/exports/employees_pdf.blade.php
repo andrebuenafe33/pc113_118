@@ -53,7 +53,7 @@
         /* Adjusted column widths */
         th:nth-child(1), td:nth-child(1) { width: 12%; } /* Name */
         th:nth-child(2), td:nth-child(2) { width: 12%; } /* Position */
-        th:nth-child(3), td:nth-child(3) { width: 6%; }  /* Department */
+        th:nth-child(3), td:nth-child(3) { width: 10%; }  /* Department */
         th:nth-child(4), td:nth-child(4) { width: 10%; } /* Hire Date */
         th:nth-child(5), td:nth-child(5) { width: 18%; } /* Salary */
     </style>
